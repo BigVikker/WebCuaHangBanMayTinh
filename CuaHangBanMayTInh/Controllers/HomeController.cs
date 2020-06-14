@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using CuaHangBanMayTInh.Models.Tool;
 using System.Web.Mvc;
 
 namespace CuaHangBanMayTInh.Controllers
@@ -12,18 +13,22 @@ namespace CuaHangBanMayTInh.Controllers
         {
             return View();
         }
+        
 
-        public ActionResult About()
+        public ActionResult Login()
         {
-            ViewBag.Message = "Your application description page.";
-
+            Session["username"] = null;
             return View();
         }
-
-        public ActionResult Contact()
+        [HttpPost,ActionName("Login")]
+        public ActionResult Login(string username,string password)
         {
-            ViewBag.Message = "Your contact page.";
-
+            Customer tool_user = new Customer();
+            if (tool_user.checkLogin(username, password))
+            {
+                Session["username"] = username;
+                return RedirectToAction("Index","Shop");
+            }
             return View();
         }
     }

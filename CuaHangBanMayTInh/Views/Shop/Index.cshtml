@@ -1,0 +1,41 @@
+﻿@model IPagedList<CuaHangBanMayTInh.Models.Enites.MayTinh>
+@using PagedList.Mvc;
+@using PagedList;
+
+<head runat="server">
+    <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="/Content/bootstrap.css" rel="stylesheet" />
+        <link href="~/Content/XYZ.css" rel="stylesheet" />
+        <link href="~/Content/Site.css" rel="stylesheet" />
+        <script src="/Scripts/modernizr-2.8.3.js"></script>
+        <script src="~/Scripts/jquery-3.4.1.js"></script>
+        <script src="~/Scripts/bootstrap.js"></script>
+    </asp:Content>
+</head>
+
+<div class="jumbotron" style="background-color:dimgrey">
+    <h1>Cửa Hàng Bán Máy Tính Thành Công</h1>
+    <p class="lead">Cửa Hàng Thành Công Bán Các Thiết Bị Máy Tính Và Phân Phối Sản Phẩm Trên Toàn Quốc </p>
+</div>
+
+<br />
+
+<div class="container ">
+    <ul>
+        @foreach (var item in Model)
+        {
+            <li class="list-group-item" style="width:33%; float:left;">
+                <label>Sản Phẩm :</label><b>@item.tenMayTinh</b>
+                <br />
+                <a >
+                    <div style="height:300px; ">
+                        <img class="fullSreen">
+                    </div>
+                </a>
+            </li>
+        }
+    </ul>
+</div>
+@Html.PagedListPager(Model,page => Url.Action("Index", new { page }))

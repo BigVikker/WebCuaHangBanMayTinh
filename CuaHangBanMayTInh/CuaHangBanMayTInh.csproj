@@ -212,6 +212,28 @@
     <Content Include="Content\dist\js\pages\dashboard2.js" />
     <Content Include="Content\dist\js\pages\dashboard3.js" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\Photo\MT001.jpg" />
+    <Content Include="Content\Photo\MT002.jpg" />
+    <Content Include="Content\Photo\MT003.jpg" />
+    <Content Include="Content\Photo\MT004.jpg" />
+    <Content Include="Content\Photo\MT005.jpg" />
+    <Content Include="Content\Photo\MT006.jpg" />
+    <Content Include="Content\Photo\MT007.jpg" />
+    <Content Include="Content\Photo\MT008.jpg" />
+    <Content Include="Content\Photo\MT009.jpg" />
+    <Content Include="Content\Photo\MT010.jpg" />
+    <Content Include="Content\Photo\MT011.jpg" />
+    <Content Include="Content\Photo\MT012.jpg" />
+    <Content Include="Content\Photo\MT012.png" />
+    <Content Include="Content\Photo\MT013.jpg" />
+    <Content Include="Content\Photo\MT014.jpg" />
+    <Content Include="Content\Photo\MT015.jpg" />
+    <Content Include="Content\Photo\MT016.jpg" />
+    <Content Include="Content\Photo\MT017.jpg" />
+    <Content Include="Content\Photo\MT018.jpg" />
+    <Content Include="Content\Photo\MT019.jpg" />
+    <Content Include="Content\Photo\MT020.jpg" />
+    <Content Include="Content\Photo\MT021.jpg" />
     <Content Include="Content\plugins\bootstrap-colorpicker\css\bootstrap-colorpicker.css" />
     <Content Include="Content\plugins\bootstrap-colorpicker\css\bootstrap-colorpicker.min.css" />
     <Content Include="Content\plugins\bootstrap-colorpicker\js\bootstrap-colorpicker.js" />
@@ -1953,9 +1975,13 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Shop\Index.cshtml" />
+    <Content Include="Views\Shop\Create.cshtml" />
+    <Content Include="Views\Shop\Details.cshtml" />
+    <Content Include="Views\Shop\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Photo\Temp\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

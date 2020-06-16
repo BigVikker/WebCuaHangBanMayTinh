@@ -6,12 +6,129 @@ using CuaHangBanMayTInh.Models.Enites;
 using System.Web.Mvc;
 using CuaHangBanMayTInh.Models.Tool;
 using PagedList;
-
+using System.IO;
 namespace CuaHangBanMayTInh.Controllers
 {
     public class ShopController : Controller
     {
         // GET: Shop
+
+
+        public ActionResult Create()
+        {
+            Model1 db = new Model1();
+            var list = db.LoaiMayTinhs.ToList();
+            return View(list);
+        }
+
+
+        //public ActionResult Add(string idcategory, string description, string name, string amount, string price, HttpPostedFileBase photo)
+        //{
+        //    var img = Path.GetFileName(photo.FileName);
+        //    System.IO.File.Move(photo.FileName, );
+        //    Product product = new Product();
+        //    product.amount = Int32.Parse(amount);
+        //    product.price = Int32.Parse(price);
+        //    product.name = name;
+        //    product.description = description;
+        //    product.idcategory = Int32.Parse(idcategory);
+        //    if (ModelState.IsValid)
+        //    {
+        //        if (photo != null && photo.ContentLength > 0)
+        //        {
+        //            var path = Path.Combine(Server.MapPath("~/Areas/Admin/Content/Photo/"),
+        //                                    System.IO.Path.GetFileName(photo.FileName));
+        //            photo.SaveAs(path);
+
+        //            product.photo = photo.FileName;
+        //            ProductDao dao = new ProductDao();
+        //            dao.Add(product);
+        //        }
+        //        return RedirectToAction("Index");
+        //    }
+        //    else
+        //    {
+        //        return View(product);
+        //    }
+        //}
+
+
+        [HttpPost, ActionName("Create")]
+        public ActionResult Create(string tenMayTinh, int Gia, int namSanXuat, string maLoai, HttpPostedFileBase photo)
+        {
+            Model1 db = new Model1();
+            MayTinh mayTinh = new MayTinh();
+            mayTinh.tenMayTinh = tenMayTinh;
+            mayTinh.Gia = Gia;
+            mayTinh.namSanXuat = namSanXuat;
+            mayTinh.maLoai = maLoai;
+            MayTinh obj_take_id = db.MayTinhs.SqlQuery("select top(1) * from MayTinh order by maMayTinh desc").SingleOrDefault();
+            string id = obj_take_id.maMayTinh.ToString();
+            id = id.Substring(2);
+            int numberID = Int32.Parse(id);
+            numberID++;
+            id = "MT" + numberID;
+            mayTinh.maMayTinh = id;
+            if(ModelState.IsValid)
+            {
+                if(photo != null && photo.ContentLength > 0)
+                {
+                    string fileName = mayTinh.maMayTinh+".jpg";
+                    var path = Path.Combine(Server.MapPath("~/Content/Photo/"),fileName);
+                    photo.SaveAs(path);
+                    db.MayTinhs.Add(mayTinh);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            return View();
+
+        }
+
+        public ActionResult Edit(string id)
+        {
+            Model1 db = new Model1();
+            var obj_found = db.MayTinhs.Find(id);
+            return View(obj_found);
+        }
+        [HttpPost, ActionName("Edit")]
+        public ActionResult Edit( string id , string tenMayTinh, int Gia, int namSanXuat, string maLoai, HttpPostedFileBase photo)
+        {
+            Model1 db = new Model1();
+            MayTinh mayTinh = db.MayTinhs.Find(id);
+            if (mayTinh != null)
+            {
+                mayTinh.tenMayTinh = tenMayTinh;
+                mayTinh.Gia = Gia;
+                mayTinh.namSanXuat = namSanXuat;
+                mayTinh.maLoai = maLoai;
+                if (TryUpdateModel(mayTinh))
+                {
+                    db.SaveChanges();
+                }
+                
+                else return View();
+
+                if (photo != null && photo.ContentLength > 0)
+                {
+                    string path_delete = Path.Combine(Server.MapPath("~/Content/Photo/"),id+".jpg");
+                    System.IO.File.Delete(path_delete);
+                    string nameFile = id + ".jpg";
+                    var path = Path.Combine(Server.MapPath("~/Content/Photo/"), nameFile);
+                    photo.SaveAs(path);
+
+                }
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
+
+        public ActionResult Details(string id)
+        {
+            Model1 db = new Model1();
+            var obj_found = db.MayTinhs.Find(id);
+            return View(obj_found);
+        }
         public ActionResult Index(int? page)
         {
             Computer computers = new Computer();

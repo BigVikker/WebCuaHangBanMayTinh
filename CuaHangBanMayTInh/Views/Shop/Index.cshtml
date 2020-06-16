@@ -21,18 +21,31 @@
 </div>
 
 <br />
+<div>
+    <a href="https://localhost:44359/Shop/Create" class="btn btn-info">
+        Thêm mới sản phẩm máy tính
+    </a>
+</div>
+
+<br />
 
 <div class="container ">
     <ul>
         @foreach (var item in Model)
         {
             <li class="list-group-item" style="width:33%; float:left;">
-                <label>Sản Phẩm :</label><b>@item.tenMayTinh</b>
-                <br />
-                <a >
+                <a href="https://localhost:44359/Shop/Details?id=@item.maMayTinh">
+                    <label>Sản Phẩm :</label><b>@item.tenMayTinh</b>
+                    <br />
                     <div style="height:300px; ">
-                        <img class="fullSreen">
+                        @{
+                            string anh = "/Content/Photo/" + item.maMayTinh + ".jpg";
+                        }
+                        <img class="fullSreen " style="width:100%;" src="@anh" />
                     </div>
+                    <label>
+                        Giá : <b> @item.Gia</b>
+                    </label>
                 </a>
             </li>
         }

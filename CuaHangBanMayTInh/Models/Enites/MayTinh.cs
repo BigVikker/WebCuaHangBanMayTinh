@@ -26,6 +26,7 @@ namespace CuaHangBanMayTInh.Models.Enites
         public string maLoai { get; set; }
 
         public int? namSanXuat { get; set; }
+        public Int64 Gia { get; set; }
 
         public virtual LoaiMayTinh LoaiMayTinh { get; set; }
 

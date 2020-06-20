@@ -15,40 +15,52 @@
     </asp:Content>
 </head>
 
-<div class="jumbotron" style="background-color:dimgrey">
+<div class="jumbotron" style="background-color:ivory">
     <h1>Cửa Hàng Bán Máy Tính Thành Công</h1>
     <p class="lead">Cửa Hàng Thành Công Bán Các Thiết Bị Máy Tính Và Phân Phối Sản Phẩm Trên Toàn Quốc </p>
 </div>
 
 <br />
+
 <div>
-    <a href="https://localhost:44359/Shop/Create" class="btn btn-info">
+    <form action="https://localhost:44359/Shop/Index">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Tìm Kiếm Tên Máy Tính : </label>
+                <input type="text" name="stringFind" placeholder=" tên máy tính" value="@ViewBag.stringFind">
+                <input type="submit" class="btn-file" />
+            </div>
+        </div>
+    </form>
+</div>
+
+<div>
+    <a href="https://localhost:44359/Shop/Create" class="btn btn-info" >
         Thêm mới sản phẩm máy tính
     </a>
 </div>
-
-<br />
-
-<div class="container ">
-    <ul>
-        @foreach (var item in Model)
-        {
-            <li class="list-group-item" style="width:33%; float:left;">
-                <a href="https://localhost:44359/Shop/Details?id=@item.maMayTinh">
-                    <label>Sản Phẩm :</label><b>@item.tenMayTinh</b>
-                    <br />
-                    <div style="height:300px; ">
-                        @{
-                            string anh = "/Content/Photo/" + item.maMayTinh + ".jpg";
-                        }
-                        <img class="fullSreen " style="width:100%;" src="@anh" />
-                    </div>
-                    <label>
-                        Giá : <b> @item.Gia</b>
-                    </label>
-                </a>
-            </li>
-        }
-    </ul>
+<div>
+    <div class="container">
+        <ul>
+            @foreach (var item in Model)
+            {
+                <li class="list-group-item" style="width:32%; float:left;">
+                    <a href="https://localhost:44359/Shop/Details?id=@item.maMayTinh">
+                        <label>Sản Phẩm :</label><b>@item.tenMayTinh</b>
+                        <br />
+                        <div style="height:300px; ">
+                            @{
+                                string anh = "/Content/Photo/" + item.maMayTinh + ".jpg";
+                            }
+                            <img class="fullSreen " style="width:100%;" src="@anh" />
+                        </div>
+                        <label>
+                            Giá : <b> @item.Gia</b>
+                        </label>
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
 </div>
-@Html.PagedListPager(Model,page => Url.Action("Index", new { page }))
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, stringFind = ViewBag.stringFind }))

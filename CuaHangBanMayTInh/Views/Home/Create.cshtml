@@ -1,0 +1,137 @@
+﻿@model CuaHangBanMayTInh.Models.Enites.KhachHang
+
+@{
+    ViewBag.Title = "Create";
+    Layout = null;
+}
+<head>
+
+    <!-- jQuery 2.2.3 -->
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/XYZ.js"></script>
+    <!-- Bootstrap 3.3.6 -->
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <!-- iCheck -->
+    <script src="~/Content/plugins/iCheck/icheck.min.js"></script>
+    <!-- Bootstrap 3.3.6 -->
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+</head>
+
+<h2>Create</h2>
+
+<form action="/Home/Login">
+    <label>Tên Khách Hàng </label>
+    <input id="tenKH" name="tenKH" onkeyup="checkToSignIn()" type="text" />
+    <br />
+    <label>Tên Đăng Nhập </label>
+    <input id="tenDangNhap" name="tenDangNhap" onkeyup="checkToSignIn()" type="text" />
+    <div id="er_user"></div>
+    <br />
+    <label>Mật Khẩu</label>
+    <input id="matKhau" name="matKhau" onkeyup="checkToSignIn()" type="password" />
+    <div id="er_password"></div>
+    <br />
+    <label>Nhập Lại Mật Khẩu</label>
+    <input id="matKhau1" name="matKhau1" onkeyup="checkToSignIn()" type="password" />
+    <div id="er_password1"></div>
+    <br />
+    <label>Gmail </label>
+    <input id="gmail" name="gmail" onkeyup="checkToSignIn()" type="text" />
+    <div id="er_gmail"></div>
+    <br />
+    <label>Số điện thoạt </label>
+    <input id="SDT" name="SDT" onkeyup="checkToSignIn()" type="number" />
+    <div id="er_SDT"></div>
+    <br />
+    <input type="submit" class="btn btn-info" value="Xác Nhận" />
+
+</form>
+
+<div>
+    <a href="/Home/Login" class="btn btn-info"> Back To Log In</a>
+</div>
+<script>
+    $("form").submit(function (event) {
+        if ($("#tenDangNhap").val().length > 4) {
+            if ($("#matKhau").val().length > 4 && $("#matKhau").val() == $("#matKhau1").val()) {
+                if ($("#SDT").val().length > 9 && $("#SDT").val().length < 11) {
+                    if (isEmail($("#gmail").val()))
+                    return;
+                }
+            }
+        }
+        javascrpit: alert('error');
+        event.preventDefault();
+    });
+    
+</script>
+<script>
+    function checkToSignIn() {
+        var value_user = document.getElementById("tenDangNhap").value;
+        if (value_user.length <= 4) {
+            var a = "err: at least 5 char";
+            document.getElementById("er_user").innerHTML = a.fontcolor("red");
+        }
+        else {
+            var a = "OK";
+            document.getElementById("er_user").innerHTML = a.fontcolor("green");
+        }
+
+        var value_password = document.getElementById("matKhau").value;
+        if (value_password.length <= 4) {
+            var a = "err: at least 5 char";
+            document.getElementById("er_password").innerHTML = a.fontcolor("red");
+        }
+        else {
+            var a = "OK"
+            document.getElementById("er_password").innerHTML = a.fontcolor("green");
+        }
+
+        var value_password1 = document.getElementById("matKhau1").value;
+        if (value_password != value_password1) {
+            var a = "not correct";
+            document.getElementById("er_password1").innerHTML = a.fontcolor("red");
+        }
+        else {
+            var a = "OK"
+            document.getElementById("er_password1").innerHTML = a.fontcolor("green");
+        }
+
+        if (isEmail(document.getElementById("gmail").value)) {
+            var a = "OK"
+            document.getElementById("er_gmail").innerHTML = a.fontcolor("green");
+        }
+        else {
+            var a = "not validate";
+            document.getElementById("er_gmail").innerHTML = a.fontcolor("red");
+        }
+
+        if (document.getElementById("SDT").value.length > 9 && document.getElementById("SDT").value.length < 11) {
+            var a = "OK"
+            document.getElementById("er_SDT").innerHTML = a.fontcolor("green");
+        }
+        else {
+            var a = "not validate";
+            document.getElementById("er_SDT").innerHTML = a.fontcolor("red");
+        }
+
+        //var value_repassword = document.getElementById("repassword").value;
+        //if (value_repassword.length > 6) {
+        //	if (value_password != value_repassword) {
+        //		var a = "err: cant match password";
+        //		document.getElementById("er_repassword").innerHTML = a.fontcolor("red");
+        //	}
+        //	else {
+        //		var a = "match";
+        //		document.getElementById("er_repassword").innerHTML = a.fontcolor("green");
+        //	}
+        //}
+    }
+    
+</script>

@@ -13,7 +13,10 @@ namespace CuaHangBanMayTInh.Controllers
         {
             return View();
         }
-        
+        public ActionResult Create()
+        {
+            return View();
+        }
 
         public ActionResult Login()
         {
@@ -23,11 +26,17 @@ namespace CuaHangBanMayTInh.Controllers
         [HttpPost,ActionName("Login")]
         public ActionResult Login(string username,string password)
         {
+            
             Customer tool_user = new Customer();
             if (tool_user.checkLogin(username, password))
             {
                 Session["username"] = username;
                 return RedirectToAction("Index","Shop");
+            }
+            if(tool_user.checkManagerment(username,password))
+            {
+                Session["username"] = username;
+                return RedirectToAction("QuanLy", "Shop");
             }
             return View();
         }

@@ -1959,6 +1959,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\XYZ.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -1978,6 +1979,8 @@
     <Content Include="Views\Shop\Create.cshtml" />
     <Content Include="Views\Shop\Details.cshtml" />
     <Content Include="Views\Shop\Edit.cshtml" />
+    <Content Include="Views\Shop\QuanLy.cshtml" />
+    <Content Include="Views\Home\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

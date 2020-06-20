@@ -21,6 +21,13 @@ namespace CuaHangBanMayTInh.Models.Tool
             if (check_number != null) return true;
             else return false;
         }
+        public bool checkManagerment(string username,string password)
+        {
+            var number_check = db.NhanViens.SqlQuery("select * from NhanVien where " +
+                "MaNV = '" + username + "' and matKhau = '" + password + "'").SingleOrDefault();
+            if (number_check != null) return true;
+            return false;
+        }
 
     }
 }

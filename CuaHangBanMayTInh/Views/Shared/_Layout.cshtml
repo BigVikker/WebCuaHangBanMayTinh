@@ -23,9 +23,20 @@
                     <span class="icon-bar"></span>
                 </button>
                 </div>
+            <div>
+                @Html.ActionLink("View Cart You Have Been Choose", "Cart", "Shop")
+            </div>
             <div class="navbar-collapse collapse" style="float:right;">
                 <ul class="nav navbar-nav" style="float:right">
-                    <li>@Html.ActionLink( @Session["username"] + " LogOut", "Login", "Home")</li>
+                    @{ if (Session["username"] != null)
+                        {
+                            <li>@Html.ActionLink(@Session["username"] + " LogOut", "Login", "Home")</li>
+                        }
+                        else
+                        {
+                            <li>@Html.ActionLink("LogIn", "Login", "Home")</li>
+                        }
+                    }
                 </ul>
             </div>
         </div>

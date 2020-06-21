@@ -14,8 +14,12 @@
         <script src="~/Scripts/bootstrap.js"></script>
     </asp:Content>
 </head>
+<br />
+<div>
+    <a href="/Shop/Cart"> Cart View</a>
+</div>
 
-<div class="jumbotron" style="background-color:ivory">
+<div class="jumbotron" style="background-color:aquamarine">
     <h1>Cửa Hàng Bán Máy Tính Thành Công</h1>
     <p class="lead">Cửa Hàng Thành Công Bán Các Thiết Bị Máy Tính Và Phân Phối Sản Phẩm Trên Toàn Quốc </p>
 </div>
@@ -23,7 +27,7 @@
 <br />
 
 <div>
-    <form action="https://localhost:44359/Shop/Index">
+    <form action="/Shop/Index">
         <div class="col-md-6">
             <div class="form-group">
                 <label>Tìm Kiếm Tên Máy Tính : </label>
@@ -35,32 +39,26 @@
 </div>
 
 <div>
-    <a href="https://localhost:44359/Shop/Create" class="btn btn-info" >
-        Thêm mới sản phẩm máy tính
-    </a>
-</div>
-<div>
     <div class="container">
         <ul>
             @foreach (var item in Model)
             {
                 <li class="list-group-item" style="width:32%; float:left;">
-                    <a href="https://localhost:44359/Shop/Details?id=@item.maMayTinh">
-                        <label>Sản Phẩm :</label><b>@item.tenMayTinh</b>
-                        <br />
-                        <div style="height:300px; ">
-                            @{
-                                string anh = "/Content/Photo/" + item.maMayTinh + ".jpg";
-                            }
-                            <img class="fullSreen " style="width:100%;" src="@anh" />
-                        </div>
-                        <label>
-                            Giá : <b> @item.Gia</b>
-                        </label>
-                    </a>
+                    <label>Sản Phẩm :</label><b>@item.tenMayTinh</b>
+                    <br />
+                    <div style="height:300px; ">
+                        @{
+                            string anh = "/Content/Photo/" + item.maMayTinh + ".jpg";
+                        }
+                        <img class="fullSreen " style="width:100%;" src="@anh" />
+                    </div>
+                    <label>
+                        Giá : <b> @item.Gia</b>
+                    </label>
+
+                    @Html.ActionLink("Add To Cart", "AddToCart", "Shop", new { id = item.maMayTinh, donGia = item.Gia.ToString() }, new { @class="btn btn-info"})
                 </li>
             }
         </ul>
     </div>
 </div>
-@Html.PagedListPager(Model, page => Url.Action("Index", new { page, stringFind = ViewBag.stringFind }))

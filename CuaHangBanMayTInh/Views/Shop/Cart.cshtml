@@ -1,0 +1,65 @@
+﻿@model IEnumerable<CuaHangBanMayTInh.Models.Enites.GioHang>
+
+@{
+    ViewBag.Title = "Cart";
+}
+
+<h2>Cart</h2>
+
+<table class="table table-bordered">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.maGioHang)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.soLuong)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.donGia)
+        </th>
+        <th>
+            Tien Cua Mat Hang
+        </th>
+        <th>
+            Cac Dich Vu
+        </th>
+    </tr>
+    @{long tong = 0;
+        int sl = 0;}
+@foreach (var item in Model) {
+<tr>
+    @{ 
+        long tong1 = 0;
+        tong1 = item.soLuong * item.donGia;
+        tong += item.soLuong * item.donGia;
+        sl += item.soLuong;
+    }
+    <form action="/Shop/EditCart" method="post">
+        <td>
+            <input type="text" name="id" id="id" value="@item.maGioHang" readonly />
+        </td>
+        <td>
+            <input type="number" name="soLuong" id="soLuong" value="@item.soLuong"/>
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.donGia)
+        </td>
+        <td>
+            @tong1
+        </td>
+        <td>
+            <input type="submit" value="xac nhan" class="btn btn-default"/>
+        </td>
+    </form>
+</tr>
+}
+    <tr>
+        <td> Tổng số Lượng Và Giá Trị </td>
+        <td> @sl</td>
+        <td></td>
+        <td> @tong</td>
+    </tr>
+
+
+</table>

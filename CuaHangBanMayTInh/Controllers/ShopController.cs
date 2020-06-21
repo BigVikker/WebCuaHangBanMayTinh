@@ -174,5 +174,71 @@ namespace CuaHangBanMayTInh.Controllers
             var list = db.MayTinhs.SqlQuery(query).ToList();
             return View(list.ToPagedList(page ?? 1,5));
         }
+        public ActionResult Cart()
+        {
+            var l = new List<GioHang>();
+            if (Session["cart"] != null)
+            {
+                l = (List<GioHang>)Session["cart"];
+
+            }
+            return View(l);
+            
+        }
+        public ActionResult AddToCart(string id,string donGia)
+        {
+            //Model1 db = new Model1();
+            //db.Database.ExecuteSqlCommand("asdadad");
+            var gio = new List<GioHang>();
+            if (Session["cart"] == null)
+            {
+                GioHang gioHang_add1 = new GioHang(id, 1, Int64.Parse(donGia));
+                gio.Add(gioHang_add1);
+                Session["cart"] = gio;
+            }
+
+            else
+            {
+                gio = (List<GioHang>)Session["cart"];
+                bool check = false;
+                foreach(var item in gio)
+                {
+                    if(item.maGioHang == id)
+                    {
+                        check = true;
+                        item.soLuong++;
+                        break;
+                    }
+                }
+                if(check == false) { 
+                GioHang gioHang = new GioHang(id, 1, Int64.Parse(donGia));
+                gio.Add(gioHang);
+                }
+            }
+            return RedirectToAction("Index");
+        }
+        [HttpPost]
+        public ActionResult EditCart(string id,int soLuong)
+        {
+            
+            var gio = new List<GioHang>();
+            gio = (List<GioHang>)Session["cart"];
+            if (soLuong <= 0)
+            {
+                var gioHang = gio.Find(x => x.maGioHang == id);
+                gio.Remove(gioHang);
+            }
+            else
+                foreach (var item in gio)
+                {
+                    if (item.maGioHang == id)
+                    {
+                        item.soLuong = soLuong;
+                    }
+                }
+            return RedirectToAction("Cart");
+        }
+
+        
     }
 }

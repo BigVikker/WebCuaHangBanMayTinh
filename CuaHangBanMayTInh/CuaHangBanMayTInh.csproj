@@ -1981,6 +1981,7 @@
     <Content Include="Views\Shop\Edit.cshtml" />
     <Content Include="Views\Shop\QuanLy.cshtml" />
     <Content Include="Views\Home\Create.cshtml" />
+    <Content Include="Views\Shop\Cart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

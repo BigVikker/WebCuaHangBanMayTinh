@@ -238,7 +238,28 @@ namespace CuaHangBanMayTInh.Controllers
                 }
             return RedirectToAction("Cart");
         }
-
+        public ActionResult XacNhanGioHang()
+        {
+            if(Session["username"] == null)
+            {
+                return RedirectToAction("Login","Home");
+            }
+            else
+            {
+                Model1 db = new Model1();
+                var obj_khachHang = db.KhachHangs.SqlQuery("select Top(1) * from KhachHang where tenDangNhap = '"+Session["username"]+"'");
+                if(obj_khachHang == null)
+                {
+                    return RedirectToAction("Cart");
+                }
+                else
+                {
+                    var gio = new List<GioHang>();
+                    gio = (List<GioHang>)Session["cart"];
+                    return RedirectToAction("Index");
+                }
+            }
+        }
         
     }
 }

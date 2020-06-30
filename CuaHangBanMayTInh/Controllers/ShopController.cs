@@ -200,7 +200,6 @@ namespace CuaHangBanMayTInh.Controllers
             if (Session["cart"] != null)
             {
                 l = (List<GioHang>)Session["cart"];
-
             }
             return View(l);
             
@@ -227,7 +226,7 @@ namespace CuaHangBanMayTInh.Controllers
                 bool check = false;
                 foreach(var item in gio)
                 {
-                    if(item.maGioHang == id)
+                    if(item.maMayTinh == id)
                     {
                         check = true;
                         item.soLuong++;
@@ -249,13 +248,13 @@ namespace CuaHangBanMayTInh.Controllers
             gio = (List<GioHang>)Session["cart"];
             if (soLuong <= 0)
             {
-                var gioHang = gio.Find(x => x.maGioHang == id);
+                var gioHang = gio.Find(x => x.maMayTinh == id);
                 gio.Remove(gioHang);
             }
             else
                 foreach (var item in gio)
                 {
-                    if (item.maGioHang == id)
+                    if (item.maMayTinh == id)
                     {
                         item.soLuong = soLuong;
                     }
@@ -271,17 +270,45 @@ namespace CuaHangBanMayTInh.Controllers
             else
             {
                 Model1 db = new Model1();
-                var obj_khachHang = db.KhachHangs.SqlQuery("select Top(1) * from KhachHang where tenDangNhap = '"+Session["username"]+"'");
+                KhachHang obj_khachHang = new KhachHang();
+                obj_khachHang = obj_khachHang.SelectTop(Session["username"].ToString());
                 if(obj_khachHang == null)
                 {
-                    return RedirectToAction("Cart");
+                    return RedirectToAction("Login","Home");
                 }
                 else
                 {
-                    var gio = new List<GioHang>();
-                    gio = (List<GioHang>)Session["cart"];
-                    return RedirectToAction("Index");
+                    DonHang donHang_check = new DonHang();
+                    donHang_check = donHang_check.SelectTop();
+                    DonHang donHang = new DonHang();
+                    if(donHang_check == null)
+                    {
+                        donHang.maDonHang = "1000000";
+                    }
+                    else
+                    {
+                        int temp = Int32.Parse(donHang_check.maDonHang);
+                        temp++;
+                        donHang.maDonHang = temp.ToString();
+                    }
+                    donHang.maKH = obj_khachHang.maKH;
+                    donHang.trangThai = "choXuLy";
+                    db.DonHangs.Add(donHang);
+                    db.SaveChanges();
+                    var l = new List<GioHang>();
+                    if (Session["cart"] != null)
+                    {
+                        l = (List<GioHang>)Session["cart"];
+                        foreach (GioHang item in l)
+                        {
+                            GioHang gioHang = new GioHang();
+                            long TongGia = item.soLuong * item.donGia;
+                            gioHang.ThemVaoDuLieu(maMayTInh:item.maMayTinh
+                                ,maDonHang:donHang.maDonHang,soLuong:item.soLuong,donGia:TongGia,DateTime.Now);
+                        }
+                    }
                 }
+                return RedirectToAction("Index");
             }
         }
         

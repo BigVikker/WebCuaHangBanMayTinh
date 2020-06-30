@@ -2,6 +2,7 @@ namespace CuaHangBanMayTInh.Models.Enites
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
@@ -32,6 +33,11 @@ namespace CuaHangBanMayTInh.Models.Enites
         public string gmail { get; set; }
 
         public int? SDT { get; set; }
+        public KhachHang SelectTop(string tenDangNhap)
+        {
+            Model1 db = new Model1();
+            return db.KhachHangs.SqlQuery("Select Top(1) * from KhachHang where tenDangNhap = '"+tenDangNhap+"'").SingleOrDefault();
+        }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DonHang> DonHangs { get; set; }

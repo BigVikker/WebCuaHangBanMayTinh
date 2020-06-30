@@ -4,6 +4,10 @@ namespace CuaHangBanMayTInh.Models.Enites
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using System.Linq;
+    using System.Web;
+    using CuaHangBanMayTInh.Models.Enites;
+    using System.Web.Mvc;
     using System.Data.Entity.Spatial;
 
     [Table("GioHang")]
@@ -18,7 +22,7 @@ namespace CuaHangBanMayTInh.Models.Enites
 
         [Key]
         [StringLength(20)]
-        public string maGioHang { get; set; }
+        public string maMayTinh { get; set; }
         [StringLength(50)]
         public string tenSanPham { get; set; }
         public int soLuong { get; set; }
@@ -37,7 +41,7 @@ namespace CuaHangBanMayTInh.Models.Enites
 
         public GioHang(string id,string ten,int soLuong,long donGia)
         {
-            this.maGioHang = id;
+            this.maMayTinh = id;
             this.soLuong = soLuong;
             this.donGia = donGia;
         }
@@ -46,7 +50,7 @@ namespace CuaHangBanMayTInh.Models.Enites
         {
             bool co = false;
             foreach (GioHang i in listGioHang)
-                if (i.maGioHang == obj_add.maGioHang)
+                if (i.maMayTinh == obj_add.maMayTinh)
                 {
                     i.soLuong += obj_add.soLuong;
                     co = true;
@@ -58,7 +62,7 @@ namespace CuaHangBanMayTInh.Models.Enites
         public void updateHangHoa(GioHang obj_updated)
         {
             foreach (GioHang i in listGioHang)
-                if (i.maGioHang == obj_updated.maGioHang)
+                if (i.maMayTinh == obj_updated.maMayTinh)
                 {
                     i.soLuong = obj_updated.soLuong;
                     if (obj_updated.soLuong == 0)
@@ -69,7 +73,7 @@ namespace CuaHangBanMayTInh.Models.Enites
         public void deleteHangHoa(string id)
         {
             foreach (GioHang i in listGioHang)
-                if (i.maGioHang == id)
+                if (i.maMayTinh == id)
                 {
                     listGioHang.Remove(i);
                 }
@@ -86,12 +90,24 @@ namespace CuaHangBanMayTInh.Models.Enites
             return sll;
 
         }
+        public GioHang SelectTop()
+        {
+            Model1 db = new Model1();
+            return db.GioHangs.SqlQuery("Select Top(1) * from GioHang order by maMayTinh").SingleOrDefault();
+        }
         public long getTongTien()
         {
             long tong = 0;
             foreach (GioHang i in listGioHang)
                 tong += i.soLuong * i.donGia;
             return tong;
+        }
+        public void ThemVaoDuLieu(string maMayTInh, string maDonHang, int soLuong, long donGia, DateTime ngayTao)
+        {
+            Model1 db = new Model1();
+            db.Database.ExecuteSqlCommand("insert into GioHang values ('{0}','{1}','{2}','{3}','{4}')"
+                , maMayTInh, maDonHang, soLuong, donGia, ngayTao.Date.ToString());
+            db.SaveChanges();
         }
     }
 }

@@ -24,13 +24,30 @@
                 </button>
                 </div>
             <div>
-                @Html.ActionLink("View Cart You Have Been Choose", "Cart", "Shop")
+                @{
+                    
+                }
             </div>
             <div class="navbar-collapse collapse" style="float:right;">
                 <ul class="nav navbar-nav" style="float:right">
-                    @{ if (Session["username"] != null)
+                    @{
+
+                        if (Session["username"].ToString().Trim().StartsWith("NV"))
                         {
-                            <li>@Html.ActionLink(@Session["username"] + " LogOut", "Login", "Home")</li>
+
+                        }
+                        else
+                        {
+                            <li>
+                                   <a class="btn btn-primary" href="/Shop/Cart">
+                                          <span class="glyphicon glyphicon-shopping-cart"></span>  Shopping Cart
+                                   </a>
+                            </li>
+                        }
+
+                        if (Session["username"] != null)
+                        {
+                            <li>@Html.ActionLink(@Session["username"] + " LogOut", "Login", "Home", new {@class = "btn btn-default"})</li>
                         }
                         else
                         {

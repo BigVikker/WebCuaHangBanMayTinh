@@ -75,7 +75,7 @@
                         Giá : <b> @item.Gia</b>
                     </label>
 
-                    @Html.ActionLink("Add To Cart", "AddToCart", "Shop", new { id = item.maMayTinh, donGia = item.Gia.ToString() }, new { @class = "btn btn-info" })
+                    @Html.ActionLink("Add To Cart", "AddToCart", "Shop", new { id = item.maMayTinh,tenSanPham = item.tenMayTinh ,donGia = item.Gia.ToString() }, new { @class = "btn btn-info" })
                 </li>
             }
         </ul>

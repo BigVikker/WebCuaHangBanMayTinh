@@ -15,11 +15,12 @@ namespace CuaHangBanMayTInh.Models.Enites
             DonHangs = new HashSet<DonHang>();
             MuaHangs = new HashSet<MuaHang>();
         }
-        
+
         [Key]
         [StringLength(20)]
         public string maGioHang { get; set; }
-
+        [StringLength(50)]
+        public string tenSanPham { get; set; }
         public int soLuong { get; set; }
 
         [Column(TypeName = "date")]
@@ -34,7 +35,7 @@ namespace CuaHangBanMayTInh.Models.Enites
         public virtual ICollection<MuaHang> MuaHangs { get; set; }
 
 
-        public GioHang(string id,int soLuong,long donGia)
+        public GioHang(string id,string ten,int soLuong,long donGia)
         {
             this.maGioHang = id;
             this.soLuong = soLuong;

@@ -205,14 +205,18 @@ namespace CuaHangBanMayTInh.Controllers
             return View(l);
             
         }
-        public ActionResult AddToCart(string id,string donGia)
+        public ActionResult AddToCart(string id,string tenSanPham,string donGia)
         {
             //Model1 db = new Model1();
             //db.Database.ExecuteSqlCommand("asdadad");
+            if(Session["username"] == null)
+            {
+                return RedirectToAction("Login","Home");
+            }
             var gio = new List<GioHang>();
             if (Session["cart"] == null)
             {
-                GioHang gioHang_add1 = new GioHang(id, 1, Int64.Parse(donGia));
+                GioHang gioHang_add1 = new GioHang(id,tenSanPham, 1, Int64.Parse(donGia));
                 gio.Add(gioHang_add1);
                 Session["cart"] = gio;
             }
@@ -231,7 +235,7 @@ namespace CuaHangBanMayTInh.Controllers
                     }
                 }
                 if(check == false) { 
-                GioHang gioHang = new GioHang(id, 1, Int64.Parse(donGia));
+                GioHang gioHang = new GioHang(id, tenSanPham,1, Int64.Parse(donGia));
                 gio.Add(gioHang);
                 }
             }

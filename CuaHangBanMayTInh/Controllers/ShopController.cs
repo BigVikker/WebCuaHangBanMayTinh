@@ -127,15 +127,35 @@ namespace CuaHangBanMayTInh.Controllers
             var obj_found = db.MayTinhs.Find(id);
             return View(obj_found);
         }
-        public ActionResult Index(int? page,string stringFind)
+        public ActionResult Index(int? page,string stringFind,string stringFindLoai,string sapXep)
         {
-            Computer computers = new Computer();
-            if (stringFind != null)
+            Model1 db = new Model1();
+            var query = "select * from MayTinh ";
+            if (stringFind != null && stringFind != "")
             {
                 ViewBag.stringFind = stringFind;
-                return View(computers.FindToMayTinh(stringFind).ToPagedList(page ?? 1, 6));
+                query = query + "where tenMayTinh like '%" + stringFind + "%' ";
             }
-            return View(computers.ToList().ToPagedList(page ?? 1, 7));
+            if (stringFindLoai != null && stringFindLoai != "")
+            {
+                ViewBag.stringFindLoai = stringFindLoai;
+                if (stringFind == "" || stringFind == null)
+                {
+                    query = query + " where maLoai = '" + stringFindLoai + "'";
+                }
+                else
+                {
+                    query = query + " and maLoai = '" + stringFindLoai + "'";
+                }
+            }
+            if (sapXep != null && sapXep != "")
+            {
+                ViewBag.sapXep = sapXep;
+                query = query + " order by " + sapXep;
+
+            }
+            var list = db.MayTinhs.SqlQuery(query).ToList();
+            return View(list.ToPagedList(page ?? 1, 5));
         }
         public ActionResult Delete(string id)
         {

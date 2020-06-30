@@ -1,0 +1,96 @@
+﻿@model IPagedList<CuaHangBanMayTInh.Models.Enites.MayTinh>
+@using PagedList.Mvc;
+@using PagedList;
+@{
+    ViewBag.Title = "QuanLy";
+}
+@using CuaHangBanMayTInh.Models.Enites;
+<h2>QuanLy</h2>
+
+<div>
+    <form action="/Admin/QuanLy" >
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Tìm Kiếm Tên Máy Tính : </label>
+                <input type="text" name="stringFind" class="form-control" placeholder=" tên máy tính" value="@ViewBag.stringFind">
+                <label>Tìm Kiếm Theo Mã Loại Máy Tính :</label>
+                <select name="stringFindLoai" >
+
+                    <option value="@ViewBag.stringFindLoai">@ViewBag.stringFindLoai</option>
+                    @{Model1 db = new Model1();
+                        var list = db.LoaiMayTinhs.ToList();
+                        foreach (var item in list)
+                        {
+                            <option value="@item.maLoai">@Html.DisplayFor(modelItem => item.tenLoai)</option>
+                        }
+                    }
+                    <option value="">null</option>
+                </select>
+                <br />
+                <label>Sắp Xếp Theo : </label>
+                <select name="sapXep" >
+                    <option value="@ViewBag.sapXep">@ViewBag.sapXep</option>
+                    <option value="maMayTinh">MaMayTinh</option>
+                    <option value="tenMayTinh">tenMayTinh</option>
+                    <option value="gia">Gia</option>
+                </select>
+                <br />
+                <input type="submit" class="btn-toolbar" />
+            </div>
+        </div>
+    </form>
+</div>
+
+<div>
+    @Html.ActionLink("Create New", "Create",new { @class="btn btn-default"}, new { @class = "btn btn-info"})
+</div>
+<br />
+<table class="table table-bordered">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.First().maMayTinh)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().tenMayTinh)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().maLoai)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().namSanXuat)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Gia)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.maMayTinh)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tenMayTinh)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LoaiMayTinh.tenLoai)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.namSanXuat)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gia)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.maMayTinh }) |
+                @Html.ActionLink("Details", "Details", new { id = item.maMayTinh }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.maMayTinh } ,new { @onclick = "return confirm('Are you sure you want to delete ?')"})
+            </td>
+        </tr>
+    }
+
+</table>
+
+@Html.PagedListPager(Model, page => Url.Action("QuanLy", new { page, stringFind = ViewBag.stringFind ,stringFindLoai = ViewBag.stringFindLoai , sapXep = ViewBag.sapXep}))

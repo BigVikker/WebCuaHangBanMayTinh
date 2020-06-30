@@ -36,7 +36,7 @@ namespace CuaHangBanMayTInh.Controllers
             if(tool_user.checkManagerment(username,password))
             {
                 Session["username"] = username;
-                return RedirectToAction("QuanLy", "Shop");
+                return RedirectToAction("QuanLy", "Admin");
             }
             return View();
         }

@@ -13,10 +13,6 @@ namespace CuaHangBanMayTInh.Controllers
     public class AdminController : Controller
     {
         // GET: Admin
-        public ActionResult Index()
-        {
-            return View();
-        }
         public ActionResult QuanLy(int? page, string stringFind, string stringFindLoai, string sapXep)
         {
             Model1 db = new Model1();
@@ -160,16 +156,7 @@ namespace CuaHangBanMayTInh.Controllers
             var obj_found = db.MayTinhs.Find(id);
             return View(obj_found);
         }
-        public ActionResult Index(int? page, string stringFind)
-        {
-            Computer computers = new Computer();
-            if (stringFind != null)
-            {
-                ViewBag.stringFind = stringFind;
-                return View(computers.FindToMayTinh(stringFind).ToPagedList(page ?? 1, 6));
-            }
-            return View(computers.ToList().ToPagedList(page ?? 1, 7));
-        }
+        
         public ActionResult Delete(string id)
         {
             Model1 db = new Model1();

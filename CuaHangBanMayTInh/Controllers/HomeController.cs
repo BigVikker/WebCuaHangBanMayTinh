@@ -17,6 +17,14 @@ namespace CuaHangBanMayTInh.Controllers
         {
             return View();
         }
+        [HttpPost]
+
+        public ActionResult Create(string tenKH,string tenDangNhap,string matKhau,string gmail,string SDT)
+        {
+            Customer customer1 = new Customer();
+            customer1.ThemKhachHach(tenKH, tenDangNhap, matKhau, gmail, SDT);
+            return RedirectToAction("Login");
+        }
 
         public ActionResult Login()
         {

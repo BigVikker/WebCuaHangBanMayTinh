@@ -28,6 +28,17 @@ namespace CuaHangBanMayTInh.Models.Tool
             if (number_check != null) return true;
             return false;
         }
+        public void ThemKhachHach(string tenKH, string tenDangNhap, string matKhau, string gmail, string SDT)
+        {
+            KhachHang khachHang = new KhachHang();
+            khachHang = db.KhachHangs.SqlQuery("Select Top(1)* from KhachHang order by maKH desc").SingleOrDefault();
+            
+            int numberID = Int32.Parse(khachHang.maKH.ToString().Substring(2));
+            numberID++;
+            string id = "KH" + numberID.ToString();
 
+            db.Database.ExecuteSqlCommand("insert into KhachHang values ('"+id+"','"+tenKH+"','"+tenDangNhap+"','"+matKhau+"','"+gmail+ "',"+SDT+")");
+            return;        
+        }
     }
 }

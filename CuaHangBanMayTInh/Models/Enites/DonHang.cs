@@ -30,10 +30,16 @@ namespace CuaHangBanMayTInh.Models.Enites
 
         public virtual KhachHang KhachHang { get; set; }
 
+        public void ThemVaoDuLieu(string maDonHang,string maKH,string trangThai)
+        {
+            Model1 db = new Model1();
+            db.Database.ExecuteSqlCommand("insert into DonHang(maDonHang,maKH,trangThai) values ('"+maDonHang+"','"+maKH+"','"+trangThai+"')");
+            return;
+        }
         public DonHang SelectTop()
         {
             Model1 db = new Model1();
-            return db.DonHangs.SqlQuery("Select Top(1) * from DonHang order by maDonHang").SingleOrDefault();
+            return db.DonHangs.SqlQuery("Select Top(1) * from DonHang order by maDonHang desc").SingleOrDefault();
         }
     }
 }

@@ -9,9 +9,11 @@
 <table class="table table-bordered">
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.maMayTinh)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.tenSanPham)
         </th>
-
         <th>
             @Html.DisplayNameFor(model => model.soLuong)
         </th>
@@ -37,10 +39,13 @@
     }
     <form action="/Shop/EditCart" method="post">
         <td>
-            <input type="text" name="id" id="id" value="@item.maGioHang" readonly />
+            <input type="text" name="id" id="id" value="@item.maMayTinh" readonly />
         </td>
         <td>
-            <input type="number" name="soLuong" id="soLuong" value="@item.soLuong"/>
+            @Html.DisplayFor(modelItem => item.tenSanPham)
+        </td>
+        <td>
+            <input type="number" name="soLuong" id="soLuong" value="@item.soLuong" />
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.donGia)
@@ -49,7 +54,7 @@
             @tong1
         </td>
         <td>
-            <input type="submit" value="xac nhan" class="btn btn-default"/>
+            <input type="submit" value="xac nhan" class="btn btn-default" />
         </td>
     </form>
 </tr>
@@ -63,4 +68,4 @@
 
 
 </table>
-<a href="/Shop/XacNhanGioHang" style="text-align:center" class="btn btn-danger btn-block" onclick = "return confirm('Are you sure you want to delete ?')">Xác Nhận</a>
+<a href="/Shop/XacNhanGioHang" style="text-align:center" class="btn btn-danger btn-block" onclick = "return confirm('Are you sure you want to buy this ?')">Xác Nhận Mua</a>

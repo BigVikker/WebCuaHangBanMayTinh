@@ -42,6 +42,7 @@ namespace CuaHangBanMayTInh.Models.Enites
         public GioHang(string id,string ten,int soLuong,long donGia)
         {
             this.maMayTinh = id;
+            this.tenSanPham = ten;
             this.soLuong = soLuong;
             this.donGia = donGia;
         }
@@ -93,7 +94,7 @@ namespace CuaHangBanMayTInh.Models.Enites
         public GioHang SelectTop()
         {
             Model1 db = new Model1();
-            return db.GioHangs.SqlQuery("Select Top(1) * from GioHang order by maMayTinh").SingleOrDefault();
+            return db.GioHangs.SqlQuery("Select Top(1) * from GioHang order by maMayTinh desc").SingleOrDefault();
         }
         public long getTongTien()
         {
@@ -102,11 +103,10 @@ namespace CuaHangBanMayTInh.Models.Enites
                 tong += i.soLuong * i.donGia;
             return tong;
         }
-        public void ThemVaoDuLieu(string maMayTInh, string maDonHang, int soLuong, long donGia, DateTime ngayTao)
+        public void ThemVaoDuLieu(string maMayTinh, string maDonHang, int soLuong, long donGia, DateTime ngayTao)
         {
             Model1 db = new Model1();
-            db.Database.ExecuteSqlCommand("insert into GioHang values ('{0}','{1}','{2}','{3}','{4}')"
-                , maMayTInh, maDonHang, soLuong, donGia, ngayTao.Date.ToString());
+            db.Database.ExecuteSqlCommand("insert into GioHang values ('"+maMayTinh+"','"+maDonHang+"','"+soLuong+"','"+donGia+"','"+ngayTao.Date+"')");
             db.SaveChanges();
         }
     }

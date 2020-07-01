@@ -293,18 +293,17 @@ namespace CuaHangBanMayTInh.Controllers
                     }
                     donHang.maKH = obj_khachHang.maKH;
                     donHang.trangThai = "choXuLy";
-                    db.DonHangs.Add(donHang);
-                    db.SaveChanges();
-                    var l = new List<GioHang>();
+                    donHang.ThemVaoDuLieu(donHang.maDonHang,obj_khachHang.maKH,donHang.trangThai);
+                    List<GioHang> l = new List<GioHang>();
                     if (Session["cart"] != null)
                     {
                         l = (List<GioHang>)Session["cart"];
-                        foreach (GioHang item in l)
+                        foreach (var item in l.ToList())
                         {
-                            GioHang gioHang = new GioHang();
                             long TongGia = item.soLuong * item.donGia;
-                            gioHang.ThemVaoDuLieu(maMayTInh:item.maMayTinh
+                            item.ThemVaoDuLieu(maMayTinh:item.maMayTinh
                                 ,maDonHang:donHang.maDonHang,soLuong:item.soLuong,donGia:TongGia,DateTime.Now);
+                            l.Remove(item);
                         }
                     }
                 }

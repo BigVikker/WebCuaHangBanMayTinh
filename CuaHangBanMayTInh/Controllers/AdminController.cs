@@ -56,6 +56,10 @@ namespace CuaHangBanMayTInh.Controllers
         {
             return View();
         }
+        public ActionResult asdd()
+        {
+            return View();
+        }
         //public ActionResult Add(string idcategory, string description, string name, string amount, string price, HttpPostedFileBase photo)
         //{
         //    var img = Path.GetFileName(photo.FileName);

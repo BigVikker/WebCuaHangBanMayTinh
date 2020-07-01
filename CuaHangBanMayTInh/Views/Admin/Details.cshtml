@@ -1,0 +1,56 @@
+﻿@model CuaHangBanMayTInh.Models.Enites.MayTinh
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>MayTinh</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.tenMayTinh)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tenMayTinh)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LoaiMayTinh.tenLoai)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LoaiMayTinh.tenLoai)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.namSanXuat)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.namSanXuat)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Gia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Gia)
+        </dd>
+
+    </dl>
+</div>
+@{
+    string anh = "/Content/Photo/" + Model.maMayTinh + ".jpg";
+}
+<img src="@anh" style="text-align:center"/>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.maMayTinh }, new { @class = "btn btn-default" })
+
+    @Html.ActionLink("Delete", "Delete", new { id = Model.maMayTinh }, new { @onclick = "return confirm('Are you sure you want to delete ?')" })
+    @Html.ActionLink("Back to List", "QuanLy", new { @class = "btn btn-default" })
+</p>

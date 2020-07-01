@@ -1,0 +1,86 @@
+﻿
+@model CuaHangBanMayTInh.Models.Enites.MayTinh
+@using CuaHangBanMayTInh.Models.Enites;
+
+<form action="Edit" method="post" role="form" enctype="multipart/form-data">
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <h3 class="box-title">Sửa </h3>
+
+            @*<div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+                </div>*@
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label >Mã Máy Tính</label>
+                        <select name="id" >
+                            <option value="@Model.maMayTinh"> @Model.maMayTinh</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Tên Máy Tính</label>
+                        <input type="text" name="tenMayTinh" class="form-control" value="@Model.tenMayTinh" placeholder="tên máy tính">
+                    </div>
+                    <!-- /.form-group -->
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Giá</label>
+                        <input type="number" class="form-control" name="Gia" value="@Model.Gia" placeholder="Giá">
+                    </div>
+                </div>
+                <!-- /.col -->
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label >Năm Sản Xuất</label>
+                        <input type="number" class="form-control" name="namSanXuat" value="@Model.namSanXuat" placeholder="Năm Sản Xuất">
+                    </div>
+                    <div class="form-group">
+                        <label>Loại sản phẩm</label>
+                        <select class="form-control" name="maLoai">
+                            @{
+                                Model1 db = new Model1();
+                                var list = db.LoaiMayTinhs.ToList();
+                            }
+                            @if (Model.maLoai == null)
+                            {
+                                <option value="gear"> null </option>
+                            }
+                            else
+                            {
+                                <option value="@Model.maLoai">@Model.LoaiMayTinh.tenLoai</option>
+                            }
+                            @foreach (var item in list)
+                            {
+                                <option value="@item.maLoai">@item.tenLoai</option>
+                            }
+                        </select>
+                    </div>
+                    <!-- /.form-group -->
+
+                </div>
+                <!-- /.col -->
+
+
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="exampleInputFile">Chọn ảnh</label>
+                        <input type="file" id="photo" name="photo">
+                        <p class="help-block">Chọn ảnh của sản phẩm</p>
+                    </div>
+                </div>
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.box-body -->
+
+    </div>
+    <div class="box-footer">
+        <input type="submit" class="btn btn-primary" value="Xác Nhận" />
+    </div>
+</form>

@@ -1,0 +1,51 @@
+﻿@model IEnumerable<CuaHangBanMayTInh.Models.MayTinh>
+
+@{
+    ViewBag.Title = "sdb";
+}
+
+<h2>sdb</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.tenMayTinh)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.maLoai)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.namSanXuat)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Gia)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.tenMayTinh)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.maLoai)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.namSanXuat)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Gia)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.maMayTinh }) |
+            @Html.ActionLink("Details", "Details", new { id=item.maMayTinh }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.maMayTinh })
+        </td>
+    </tr>
+}
+
+</table>

@@ -127,6 +127,7 @@ namespace CuaHangBanMayTInh.Controllers
                 return RedirectToAction("QuanLy");
             }
             return View();
+            db.Database.ExecuteSqlCommand("asddd");
         }
 
         public ActionResult Details(string id)

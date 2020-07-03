@@ -21,38 +21,6 @@ namespace CuaHangBanMayTInh.Controllers
             return View(list);
         }
 
-
-        //public ActionResult Add(string idcategory, string description, string name, string amount, string price, HttpPostedFileBase photo)
-        //{
-        //    var img = Path.GetFileName(photo.FileName);
-        //    System.IO.File.Move(photo.FileName, );
-        //    Product product = new Product();
-        //    product.amount = Int32.Parse(amount);
-        //    product.price = Int32.Parse(price);
-        //    product.name = name;
-        //    product.description = description;
-        //    product.idcategory = Int32.Parse(idcategory);
-        //    if (ModelState.IsValid)
-        //    {
-        //        if (photo != null && photo.ContentLength > 0)
-        //        {
-        //            var path = Path.Combine(Server.MapPath("~/Areas/Admin/Content/Photo/"),
-        //                                    System.IO.Path.GetFileName(photo.FileName));
-        //            photo.SaveAs(path);
-
-        //            product.photo = photo.FileName;
-        //            ProductDao dao = new ProductDao();
-        //            dao.Add(product);
-        //        }
-        //        return RedirectToAction("Index");
-        //    }
-        //    else
-        //    {
-        //        return View(product);
-        //    }
-        //}
-
-
         [HttpPost, ActionName("Create")]
         public ActionResult Create(string tenMayTinh, int Gia, int namSanXuat, string maLoai, HttpPostedFileBase photo)
         {
@@ -155,7 +123,7 @@ namespace CuaHangBanMayTInh.Controllers
 
             }
             var list = db.MayTinhs.SqlQuery(query).ToList();
-            return View(list.ToPagedList(page ?? 1, 5));
+            return View(list.ToPagedList(page ?? 1, 6));
         }
         public ActionResult Delete(string id)
         {
@@ -203,6 +171,26 @@ namespace CuaHangBanMayTInh.Controllers
             }
             return View(l);
             
+        }
+        public ActionResult DeleteFromCart(string maMayTinh)
+        {
+            Model1 db = new Model1();
+            
+            var l = new List<GioHang>();
+            if (Session["cart"] != null)
+            {
+                l = (List<GioHang>)Session["cart"];
+            }
+            foreach (var item in l)
+            {
+                if(item.maMayTinh == maMayTinh)
+                {
+                    l.Remove(item);
+                    return RedirectToAction("Cart");
+                }
+            }
+            return RedirectToAction("Cart");
+
         }
         public ActionResult AddToCart(string id,string tenSanPham,string donGia)
         {

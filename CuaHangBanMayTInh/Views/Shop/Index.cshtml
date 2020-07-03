@@ -3,36 +3,24 @@
 @using PagedList;
 @using CuaHangBanMayTInh.Models.Enites;
 
-<head runat="server">
-    <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="/Content/bootstrap.css" rel="stylesheet" />
-        <link href="~/Content/XYZ.css" rel="stylesheet" />
-        <link href="~/Content/Site.css" rel="stylesheet" />
-        <script src="/Scripts/modernizr-2.8.3.js"></script>
-        <script src="~/Scripts/jquery-3.4.1.js"></script>
-        <script src="~/Scripts/bootstrap.js"></script>
-    </asp:Content>
-</head>
-<br />
-<div class="jumbotron" style="background-color:lightgreen">
-    <h1>Cửa Hàng Bán Máy Tính Thành Công</h1>
-    <p class="lead">Cửa Hàng Thành Công Bán Các Thiết Bị Máy Tính Và Phân Phối Sản Phẩm Trên Toàn Quốc </p>
-</div>
+    <div class="content content container-fluid row">
+        
 
-<br />
-
-<div>
-    <form action="/Shop/Index">
-        <div class="col-md-6">
-            <div class="form-group">
-                <label>Tìm Kiếm Tên Máy Tính : </label>
-                <input type="text" name="stringFind" class="form-control" placeholder=" tên máy tính" value="@ViewBag.stringFind">
-                <label>Tìm Kiếm Theo Mã Loại Máy Tính :</label>
-                <select name="stringFindLoai">
-
-                    <option value="@ViewBag.stringFindLoai">@ViewBag.stringFindLoai</option>
+        <div class="navbar-inner">
+            <form action="/Shop/Index">
+                <i class="glyphicon glyphicon-glass">Tìm kiếm sản phẩm </i>
+                <input type="text" name="stringFind" class="srchTxt" placeholder=" tên máy tính" value="@ViewBag.stringFind" />
+                <select name="stringFindLoai" class="srchTxt ">
+                    @{
+                        if (ViewBag.stringFindLoai == null)
+                        {
+                            <option value="">Tất Cả</option>
+                        }
+                        else
+                        {
+                            <option value="@ViewBag.stringFindLoai">@ViewBag.stringFindLoai</option>
+                        }
+                    }
                     @{Model1 db = new Model1();
                         var list = db.LoaiMayTinhs.ToList();
                         foreach (var item in list)
@@ -40,45 +28,47 @@
                             <option value="@item.maLoai">@Html.DisplayFor(modelItem => item.tenLoai)</option>
                         }
                     }
-                    <option value="">null</option>
+                    <option value="">Tất Cả</option>
                 </select>
-                <br />
-                <label>Sắp Xếp Theo : </label>
-                <select name="sapXep">
+                <select name="sapXep" class="srchTxt">
                     <option value="@ViewBag.sapXep">@ViewBag.sapXep</option>
                     <option value="maMayTinh">MaMayTinh</option>
                     <option value="tenMayTinh">tenMayTinh</option>
                     <option value="gia">Gia</option>
                 </select>
-                <br />
-                <input type="submit" class="btn-toolbar" />
+                <button type="submit" id="submitButton" class="btn-danger">Tìm Kiếm </button>
+            </form>
+        </div>
+        <br />
+        <br />
+        <p />
+
+
+        <div>
+            <div class="container">
+                @foreach (var item in Model)
+                {
+                    <div class="border" style="width:32%; float:left;">
+                        <label>Sản Phẩm :</label><b>@item.tenMayTinh</b>
+                        <br />
+                        <div style="height:300px; ">
+                            @{
+                                string anh = "/Content/Photo/" + item.maMayTinh + ".jpg";
+                            }
+                            <img class="fullSreen " style="width:100%; height:290px" src="@anh" />
+                        </div>
+                        <label>
+                            Giá : <b> @item.Gia</b>
+                        </label>
+
+                        @Html.ActionLink("Thêm Vào Giỏ Hàng", "AddToCart", "Shop", new { id = item.maMayTinh, tenSanPham = item.tenMayTinh, donGia = item.Gia.ToString() }, new { @class = "btn btn-info" })
+                    </div>
+                }
+
             </div>
         </div>
-    </form>
-</div>
+        <div>
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page, stringFind = ViewBag.stringFind, stringFindLoai = ViewBag.stringFindLoai, sapXep = ViewBag.sapXep }))
 
-<div>
-    <div class="container">
-        <ul>
-            @foreach (var item in Model)
-            {
-                <li class="list-group-item" style="width:32%; float:left;">
-                    <label>Sản Phẩm :</label><b>@item.tenMayTinh</b>
-                    <br />
-                    <div style="height:300px; ">
-                        @{
-                            string anh = "/Content/Photo/" + item.maMayTinh + ".jpg";
-                        }
-                        <img class="fullSreen " style="width:100%;" src="@anh" />
-                    </div>
-                    <label>
-                        Giá : <b> @item.Gia</b>
-                    </label>
-
-                    @Html.ActionLink("Add To Cart", "AddToCart", "Shop", new { id = item.maMayTinh,tenSanPham = item.tenMayTinh ,donGia = item.Gia.ToString() }, new { @class = "btn btn-info" })
-                </li>
-            }
-        </ul>
+        </div>
     </div>
-</div>
-@Html.PagedListPager(Model, page => Url.Action("Index", new { page, stringFind = ViewBag.stringFind, stringFindLoai = ViewBag.stringFindLoai, sapXep = ViewBag.sapXep }))

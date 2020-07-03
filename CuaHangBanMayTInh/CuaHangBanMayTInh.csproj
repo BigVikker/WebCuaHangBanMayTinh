@@ -213,6 +213,7 @@
     <Content Include="Content\dist\js\pages\dashboard2.js" />
     <Content Include="Content\dist\js\pages\dashboard3.js" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\Photo\backgroup.jpg" />
     <Content Include="Content\Photo\MT001.jpg" />
     <Content Include="Content\Photo\MT002.jpg" />
     <Content Include="Content\Photo\MT003.jpg" />

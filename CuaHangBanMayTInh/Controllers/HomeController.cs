@@ -28,6 +28,7 @@ namespace CuaHangBanMayTInh.Controllers
 
         public ActionResult Login()
         {
+            Session["cart"] = null;
             Session["username"] = null;
             return View();
         }

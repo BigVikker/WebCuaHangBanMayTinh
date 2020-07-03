@@ -51,6 +51,6 @@
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.maMayTinh }, new { @class = "btn btn-default" })
 
-    @Html.ActionLink("Delete", "Delete", new { id = Model.maMayTinh }, new { @onclick = "return confirm('Are you sure you want to delete ?')" })
-    @Html.ActionLink("Back to List", "QuanLy", new { @class = "btn btn-default" })
+    @Html.ActionLink("Delete", "Delete", new { id = Model.maMayTinh }, new { @onclick = "return confirm('Are you sure you want to delete ?')" ,@class="btn btn-default" })
+    @Html.ActionLink("Back to List", "QuanLy","", new { @class = "btn btn-default" })
 </p>

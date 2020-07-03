@@ -54,13 +54,19 @@
             @tong1
         </td>
         <td>
-            <input type="submit" value="xac nhan" class="btn btn-default" />
+            <button type="submit" id="submitButton" class="btn btn-success">
+                <i class="glyphicon glyphicon-repeat srchTxt"></i> Xác Nhận Thay Đổi 
+            </button>
+            <a href="/Shop/DeleteFromCart?maMayTinh=@item.maMayTinh" class="btn btn-danger srchTxt " onclick = "return confirm('Bạn Muốn Xóa Không ?')">
+                <i class="glyphicon glyphicon-remove"></i> Xóa Khỏi Giỏ Hàng 
+            </a>
         </td>
     </form>
 </tr>
 }
     <tr>
         <td> Tổng số Lượng Và Giá Trị </td>
+        <td></td>
         <td> @sl</td>
         <td></td>
         <td> @tong</td>

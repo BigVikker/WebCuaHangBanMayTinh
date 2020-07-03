@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="~/Content/plugins/fontawesome-free/css/all.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/Content/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="~/Content/Site.css" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/SHop/Index">
+                    <i class="glyphicon glyphicon-home"></i>
+                    Trang Chủ
+                </a>
+            </div>
+            <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="/Shop/Cart" role="button">
+                        <i class="fas fas fa-shopping-cart"></i> Giỏ Hàng
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="/Home/Login" role="button">
+                        <i class="glyphicon glyphicon-log-out"></i> LogOut
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="jumbotron" style="background-image: url(/Content/Photo/backgroup.jpg);height:300px; background-position: center; background-repeat: no-repeat; background-size: cover;">
+
+    </div>
+    <div class="jumbotron" style="background-color:tomato">
+        <h1 style="text-align:center">Cửa Hàng Bán Máy Tính Thành Công</h1>
+        <p style="text-align:center">Cửa Hàng Thành Công Bán Các Thiết Bị Máy Tính Và Phân Phối Sản Phẩm Trên Toàn Quốc </p>
+    </div>
+
+    <div class="container body-content" style="background-color:lavender">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Cửa Hàng Máy Tính </p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+
+

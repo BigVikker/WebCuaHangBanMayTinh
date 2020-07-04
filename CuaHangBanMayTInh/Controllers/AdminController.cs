@@ -20,7 +20,7 @@ namespace CuaHangBanMayTInh.Controllers
             if (stringFind != null && stringFind != "")
             {
                 ViewBag.stringFind = stringFind;
-                query = query + "where tenMayTinh like '%" + stringFind + "%' ";
+                query = query + "where tenMayTinh like N'%" + stringFind + "%' ";
             }
             if (stringFindLoai != null && stringFindLoai != "")
             {
@@ -117,7 +117,7 @@ namespace CuaHangBanMayTInh.Controllers
         public ActionResult Edit(string id)
         {
             Model1 db = new Model1();
-            var obj_found = db.MayTinhs.Find(id);
+            var obj_found = db.MayTinhs.SqlQuery("select * from MayTinh where maMayTinh = '"+id+"'").SingleOrDefault();
             return View(obj_found);
         }
         [HttpPost, ActionName("Edit")]
@@ -153,7 +153,7 @@ namespace CuaHangBanMayTInh.Controllers
         public ActionResult Details(string id)
         {
             Model1 db = new Model1();
-            var obj_found = db.MayTinhs.Find(id);
+            MayTinh obj_found = db.MayTinhs.Find(id);
             return View(obj_found);
         }
         

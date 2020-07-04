@@ -102,7 +102,7 @@ namespace CuaHangBanMayTInh.Controllers
             if (stringFind != null && stringFind != "")
             {
                 ViewBag.stringFind = stringFind;
-                query = query + "where tenMayTinh like '%" + stringFind + "%' ";
+                query = query + "where tenMayTinh like N'%" + stringFind + "%' ";
             }
             if (stringFindLoai != null && stringFindLoai != "")
             {
@@ -194,9 +194,7 @@ namespace CuaHangBanMayTInh.Controllers
         }
         public ActionResult AddToCart(string id,string tenSanPham,string donGia)
         {
-            //Model1 db = new Model1();
-            //db.Database.ExecuteSqlCommand("asdadad");
-            if(Session["username"] == null)
+            if (Session["username"] == null)
             {
                 return RedirectToAction("Login","Home");
             }
@@ -297,6 +295,15 @@ namespace CuaHangBanMayTInh.Controllers
                 }
                 return RedirectToAction("Index");
             }
+        }
+        
+
+        public ActionResult DonHang(string maKH)
+        {
+            Model1 db = new Model1();
+            var obj_donHang = db.DonHangs.SqlQuery("select * from DonHang where maKH = '" + maKH + "'").ToList();
+
+            return View(obj_donHang);
         }
         
     }

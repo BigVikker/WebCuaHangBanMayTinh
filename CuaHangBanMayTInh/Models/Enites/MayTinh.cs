@@ -12,7 +12,7 @@ namespace CuaHangBanMayTInh.Models.Enites
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public MayTinh()
         {
-            MuaHangs = new HashSet<MuaHang>();
+            GioHangs = new HashSet<GioHang>();
         }
 
         [Key]
@@ -31,6 +31,6 @@ namespace CuaHangBanMayTInh.Models.Enites
         public virtual LoaiMayTinh LoaiMayTinh { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MuaHang> MuaHangs { get; set; }
+        public virtual ICollection<GioHang> GioHangs { get; set; }
     }
 }

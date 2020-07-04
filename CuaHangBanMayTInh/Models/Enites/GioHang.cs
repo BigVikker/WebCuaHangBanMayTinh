@@ -23,8 +23,6 @@ namespace CuaHangBanMayTInh.Models.Enites
         [Key]
         [StringLength(20)]
         public string maMayTinh { get; set; }
-        [StringLength(50)]
-        public string tenSanPham { get; set; }
         public int soLuong { get; set; }
 
         [Column(TypeName = "date")]
@@ -34,15 +32,21 @@ namespace CuaHangBanMayTInh.Models.Enites
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DonHang> DonHangs { get; set; }
+        public virtual ICollection<MayTinh> MayTinhs { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MuaHang> MuaHangs { get; set; }
 
 
+        public string getTenMayTinh(string maMayTinh)
+        {
+            Model1 db = new Model1();
+            return db.MayTinhs.Find(maMayTinh).tenMayTinh;
+        }
+
         public GioHang(string id,string ten,int soLuong,long donGia)
         {
             this.maMayTinh = id;
-            this.tenSanPham = ten;
             this.soLuong = soLuong;
             this.donGia = donGia;
         }

@@ -1,30 +1,28 @@
 ﻿@model IEnumerable<CuaHangBanMayTInh.Models.Enites.GioHang>
-
+@using CuaHangBanMayTInh.Models.Enites;
 @{
     ViewBag.Title = "Cart";
 }
 
-<h2>Cart</h2>
+<h1 style="text-align:center">Giỏ Hàng</h1>
 
 <table class="table table-bordered">
     <tr>
+        
         <th>
-            @Html.DisplayNameFor(model => model.maMayTinh)
+            Tên Sản Phẩm
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.tenSanPham)
+            Số Lượng
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.soLuong)
+            Giá
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.donGia)
+            Tông Giá Của Sản Phẩm
         </th>
         <th>
-            Tien Cua Mat Hang
-        </th>
-        <th>
-            Cac Dich Vu
+            Các Dịch Vụ 
         </th>
     </tr>
     @{long tong = 0;
@@ -37,12 +35,9 @@
         tong += item.soLuong * item.donGia;
         sl += item.soLuong;
     }
-    <form action="/Shop/EditCart" method="post">
+    <form action="/Shop/EditCart?id=@item.maMayTinh" method="post">
         <td>
-            <input type="text" name="id" id="id" value="@item.maMayTinh" readonly />
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.tenSanPham)
+            @item.getTenMayTinh(item.maMayTinh)
         </td>
         <td>
             <input type="number" name="soLuong" id="soLuong" value="@item.soLuong" />
@@ -55,9 +50,9 @@
         </td>
         <td>
             <button type="submit" id="submitButton" class="btn btn-success">
-                <i class="glyphicon glyphicon-repeat srchTxt"></i> Xác Nhận Thay Đổi 
+                <i class="glyphicon glyphicon-repeat"></i> Xác Nhận Thay Đổi 
             </button>
-            <a href="/Shop/DeleteFromCart?maMayTinh=@item.maMayTinh" class="btn btn-danger srchTxt " onclick = "return confirm('Bạn Muốn Xóa Không ?')">
+            <a href="/Shop/DeleteFromCart?maMayTinh=@item.maMayTinh" class="btn btn-danger " onclick = "return confirm('Bạn Muốn Xóa Không ?')">
                 <i class="glyphicon glyphicon-remove"></i> Xóa Khỏi Giỏ Hàng 
             </a>
         </td>
@@ -65,8 +60,14 @@
 </tr>
 }
     <tr>
-        <td> Tổng số Lượng Và Giá Trị </td>
         <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    
+    </tr>
+    <tr>
+        <td> Tổng số Lượng Và Giá Trị </td>
         <td> @sl</td>
         <td></td>
         <td> @tong</td>
@@ -74,4 +75,4 @@
 
 
 </table>
-<a href="/Shop/XacNhanGioHang" style="text-align:center" class="btn btn-danger btn-block" onclick = "return confirm('Are you sure you want to buy this ?')">Xác Nhận Mua</a>
+<a href="/Shop/XacNhanGioHang" style="text-align:center" class="btn btn-warning btn-block" onclick = "return confirm('Are you sure you want to buy this ?')">Xác Nhận Mua</a>

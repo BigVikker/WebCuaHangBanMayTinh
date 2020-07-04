@@ -5,9 +5,10 @@
     ViewBag.Title = "QuanLy";
 }
 @using CuaHangBanMayTInh.Models.Enites;
-<h2>QuanLy</h2>
+<h2 style="text-align:center">Quản Lý Sản Phẩm </h2>
 <div class="navbar-inner">
     <form action="/Admin/QuanLy">
+        <label > <i class="glyphicon glyphicon-filter"> Tìm Kiếm: </i></label>
         <input type="text" name="stringFind" class="srchTxt" placeholder=" tên máy tính" value="@ViewBag.stringFind" />
         <select name="stringFindLoai" class="srchTxt ">
             @{
@@ -30,12 +31,20 @@
             <option value="">Tất Cả</option>
         </select>
         <select name="sapXep" class="srchTxt">
-            <option value="@ViewBag.sapXep">@ViewBag.sapXep</option>
-            <option value="maMayTinh">MaMayTinh</option>
-            <option value="tenMayTinh">tenMayTinh</option>
-            <option value="gia">Gia</option>
+            @{ if (ViewBag.sapXep != null)
+                {
+                    <option value="@ViewBag.sapXep">@ViewBag.sapXep</option>
+                }
+                else
+                {
+                    <option value="">Sắp Xếp</option>
+                }
+            }
+            <option value="maMayTinh">Mã Máy Tính</option>
+            <option value="tenMayTinh">Tên Máy Tính</option>
+            <option value="gia">Giá</option>
         </select>
-        <button type="submit" id="submitButton" class="btn-danger">Tìm Kiếm </button>
+        <button type="submit" id="submitButton" class="btn-warning btn">Tìm Kiếm </button>
     </form>
 </div>
 <br />
@@ -86,9 +95,9 @@
                 @Html.DisplayFor(modelItem => item.Gia)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.maMayTinh }) |
-                @Html.ActionLink("Details", "Details", new { id = item.maMayTinh }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.maMayTinh }, new { @onclick = "return confirm('Are you sure you want to delete ?')" })
+                @Html.ActionLink("Edit", "Edit", new { id = item.maMayTinh },new { @class="btn-primary btn"}) |
+                @Html.ActionLink("Details", "Details", new { id = item.maMayTinh }, new { @class="btn btn-success"}) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.maMayTinh }, new { @onclick = "return confirm('Are you sure you want to delete ?')", @class="btn btn-danger" })
             </td>
         </tr>
     }

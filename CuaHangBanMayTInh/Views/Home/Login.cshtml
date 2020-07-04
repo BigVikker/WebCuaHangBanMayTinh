@@ -2,68 +2,68 @@
     Layout = null;
 }
 <!DOCTYPE html>
-<html
+<html>
 <head>
 
-<!-- jQuery 2.2.3 -->
+    <!-- jQuery 2.2.3 -->
     <script src="~/Scripts/jquery-3.4.1.min.js"></script>
     <script src="~/Scripts/jquery-3.4.1.js"></script>
-<!-- Bootstrap 3.3.6 -->
+    <!-- Bootstrap 3.3.6 -->
     <script src="~/Scripts/bootstrap.min.js"></script>
-<!-- iCheck -->
+    <!-- iCheck -->
     <script src="~/Content/plugins/iCheck/icheck.min.js"></script>
-<!-- Bootstrap 3.3.6 -->
+
+    <link rel="stylesheet" type="text/css" href="/Content/css/util.css">
+    <link rel="stylesheet" type="text/css" href="/Content/css/main.css">
+    <!-- Bootstrap 3.3.6 -->
+
     <link rel="stylesheet" href="~/Content/bootstrap.min.css">
-<!-- Font Awesome -->
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
-<!-- Ionicons -->
+    <!-- Ionicons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-<!-- Theme style -->
+    <!-- Theme style -->
     <link rel="stylesheet" href="~/Content/dist/css/AdminLTE.min.css">
-<!-- iCheck -->
+    <!-- iCheck -->
     <link rel="stylesheet" href="~/Content/plugins/iCheck/square/blue.css">
 </head>
-<body class="hold-transition login-page">
-    <div class="login-box">
-        <div class="login-logo">
-            <b>Bán Máy Tính</b>
-        </div>
-<!-- /.login-logo -->
-        <div class="login-box-body">
-            <p class="login-box-msg">Sign in to start your session</p>
-
-            <form action="Login" method="post" class="form-check">
-                <div class="form-group has-feedback">
-                    <label>
-                        user
-                    </label>
-                    <input onkeyup="checkToSignIn()" type="text" class="form-control" name="username" id="username" placeholder="username">
-                    <div id="er_user"></div>
-                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-                </div>
-                <div class="form-group has-feedback">
-                    <label>
-                        password
-                    </label>
-                    <input onkeyup="checkToSignIn()" type="password" class="form-control" name="password" id="password" placeholder="Password">
-                    <div id="er_password"></div>
-                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-                </div>
-                <div class="row">
-                    <div class="col-xs-4">
-                        <input type="submit" class="btn btn-primary btn-block btn-flat" value="Sign In" />
+<body class="hold-transition login-page" style="background-color:lavenderblush">
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-50">
+                <form class="login100-form validate-form" action="/Home/Login" method="post">
+                    <span class="login100-form-title p-b-33">
+                        Login
+                    </span>
+                    <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                        <input class="input100" type="text" onkeyup="checkToSignIn()" name="username" id="username" placeholder="tên đăng nhập">
+                        <div class="glyphicon glyphicon-user form-control-feedback" id="er_user"></div>
+                        <span class="focus-input100-1"></span>
+                        <span class="focus-input100-2"></span>
                     </div>
-<!-- /.col -->
-                </div>
-            </form>
-            <br />
-            <div>
-                <a href="/Home/Create" class="btn btn-primary btn-block btn-flat"> Create New Acc</a>
+
+                    <div class="wrap-input100 rs1 validate-input" data-validate="Password is required">
+                        <input class="input100" type="password" onkeyup="checkToSignIn()" name="password" id="password" placeholder="Mật khẩu">
+                        <span class="glyphicon glyphicon-eye-close form-control-feedback" id="er_password"></span>
+                        <span class="focus-input100-1"></span>
+                        <span class="focus-input100-2"></span>
+                    </div>
+
+                    <div class="container-login100-form-btn m-t-20">
+                        <button class="login100-form-btn glyphicon glyphicon-log-in">
+                            Sign in
+                        </button>
+                    </div>
+                    <div class="text" style="text-align:center">
+                        <a href="/Home/Create" class="txt2 hov1 btn btn-success">
+                            <span style="font-size:20px ">
+                                Tạo Tài Khoản
+                            </span>
+                        </a>
+                    </div>
+                </form>
             </div>
-            
-<!-- /.social-auth-links -->
         </div>
-<!-- /.login-box-body -->
     </div>
 <!-- /.login-box -->
 @*<script>
@@ -95,8 +95,7 @@
     function checkToSignIn() {
 	var value_user = document.getElementById("username").value;
 	if (value_user.length <= 4) {
-		var a = "err: at least 5 char";
-		document.getElementById("er_user").innerHTML = a.fontcolor("red");
+		document.getElementById("er_user").innerHTML = "ERR".fontcolor("red");
 	}
 	else {
 		var a = "OK";
@@ -105,8 +104,7 @@
 
 	var value_password = document.getElementById("password").value;
 	if (value_password.length <= 4) {
-		var a = "err: at least 5 char";
-		document.getElementById("er_password").innerHTML = a.fontcolor("red");
+		document.getElementById("er_password").innerHTML = "ERR".fontcolor("red");
 	}
 	else {
 		var a = "OK"

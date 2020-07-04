@@ -1,0 +1,88 @@
+﻿@model IEnumerable<CuaHangBanMayTInh.Models.Enites.DonHang>
+@using CuaHangBanMayTInh.Models.Enites;
+@{
+    ViewBag.Title = "DonHang";
+}
+
+<h2 style="text-align:center">Tất Cả Đơn Hàng </h2>
+<table class="table table-bordered">
+    <tr>
+        <th>
+            Mã Đơn Hàng
+        </th>
+        <th>
+            Tên Khách Hàng 
+        </th>
+        <th>
+            Trạng Thái Đơn Hàng
+        </th>
+        <th>
+            Các Mặt Hàng Đơn Mua
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(model => item.maDonHang)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.KhachHang.tenKH)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.trangThai)
+        </td>
+        <td>
+            <table class="table table-bordered" style="background-color:lavender">
+                @{
+                    Model1 db = new Model1();
+                    var sanPhams = db.MayTinhs.SqlQuery("select * from MayTinh where maMayTinh in " +
+                        "(select maMayTinh from GioHang where maDonHang in " +
+                        "(select maDonHang from DonHang where maDonHang = '" + item.maDonHang + "' ))").ToList();
+
+                    var soLuong = new List<GioHang>();
+                    foreach (var sanpham in sanPhams)
+                    {
+                        var temp = db.GioHangs.SqlQuery("select * from GioHang where maDonHang = '"
+                            + item.maDonHang + "' and maMayTinh = '" + sanpham.maMayTinh + "' ").ToList();
+                        soLuong.AddRange(temp);
+                    }
+                    var sanPham_N_soLuong = sanPhams.Zip(soLuong, (sp, sl) => new { sanPhams = sp, soLuong = sl });
+                    int tongSL = 0;
+                    long tongGia = 0;
+                    foreach (var a in sanPham_N_soLuong)
+                    {
+                        tongSL += a.soLuong.soLuong;
+                        tongGia += a.soLuong.donGia;
+                        <tr>
+                            <td>
+                                @a.sanPhams.tenMayTinh
+                            </td>
+                            <td>
+                                @a.soLuong.soLuong
+                            </td>
+                            <td>
+                                @a.soLuong.donGia
+                            </td>
+                            <td>
+                                @a.soLuong.ngayTao
+                            </td>
+                        </tr>
+                    }
+                    <tr>
+                        <td>
+                        </td>
+                        <td>
+                            @tongSL
+                        </td>
+                        <td>
+                            @tongGia
+                        </td>
+                    </tr>
+                }
+            </table>
+        </td>
+    </tr>
+}
+
+</table>

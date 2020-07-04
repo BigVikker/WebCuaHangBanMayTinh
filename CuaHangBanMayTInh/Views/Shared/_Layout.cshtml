@@ -5,16 +5,46 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+
+
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
     <!-- Font Awesome Icons -->
+
+    <script src="~/Content/plugins/iCheck/icheck.min.js"></script>
 
     <link rel="stylesheet" type="text/css" href="/Content/css/util.css">
     <link rel="stylesheet" type="text/css" href="/Content/css/main.css">
     <link rel="stylesheet" href="~/Content/plugins/fontawesome-free/css/all.min.css">
+
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <!-- iCheck -->
+    <script src="~/Content/plugins/iCheck/icheck.min.js"></script>
     <!-- Theme style -->
     <link rel="stylesheet" href="~/Content/dist/css/adminlte.min.css">
     <link rel="stylesheet" href="~/Content/Site.css" />
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/XYZ.js"></script>
+
+    <!-- iCheck -->
+    <script src="~/Content/plugins/iCheck/icheck.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="/Content/css/util.css">
+    <link rel="stylesheet" type="text/css" href="/Content/css/main.css">
+    <!-- Bootstrap 3.3.6 -->
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <!-- iCheck -->
+    <script src="~/Content/plugins/iCheck/icheck.min.js"></script>
+    <!-- Bootstrap 3.3.6 -->
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -58,7 +88,7 @@
                 }
                 <li class="nav-item">
                     <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="/Home/Login" role="button">
-                        <i class="glyphicon glyphicon-log-out"></i> LogOut
+                        <i class="glyphicon glyphicon-log-out"></i>@Session["username"] LogOut
                     </a>
                 </li>
 

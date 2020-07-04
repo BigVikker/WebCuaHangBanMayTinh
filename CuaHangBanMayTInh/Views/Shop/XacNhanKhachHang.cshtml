@@ -1,49 +1,89 @@
-﻿@model CuaHangBanMayTInh.Models.Enites.KhachHang
-
+﻿@model IEnumerable<CuaHangBanMayTInh.Models.Enites.GioHang>
+@using CuaHangBanMayTInh.Models.Enites;
 @{
-    ViewBag.Title = "Create";
-    Layout = null;
+    ViewBag.Title = "Cart";
 }
-<head>
 
-    <!-- jQuery 2.2.3 -->
-    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
-    <script src="~/Scripts/jquery-3.4.1.js"></script>
-    <script src="~/Scripts/XYZ.js"></script>
 
-    <!-- iCheck -->
-    <script src="~/Content/plugins/iCheck/icheck.min.js"></script>
+<h1 style="text-align:center">Xác Nhận Của Khách Hàng </h1>
 
-    <link rel="stylesheet" type="text/css" href="/Content/css/util.css">
-    <link rel="stylesheet" type="text/css" href="/Content/css/main.css">
-    <!-- Bootstrap 3.3.6 -->
-    <script src="~/Scripts/bootstrap.min.js"></script>
-    <!-- iCheck -->
-    <script src="~/Content/plugins/iCheck/icheck.min.js"></script>
-    <!-- Bootstrap 3.3.6 -->
-    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-    <!-- Theme style -->
-</head>
+<table class="table table-bordered">
+    <tr>
+
+        <th>
+            Tên Sản Phẩm
+        </th>
+        <th>
+            Số Lượng
+        </th>
+        <th>
+            Giá
+        </th>
+        <th>
+            Tông Giá Của Sản Phẩm
+        </th>
+    </tr>
+    @{long tong = 0;
+        int sl = 0;}
+    @foreach (var item in Model)
+    {
+        <tr>
+            @{
+                long tong1 = 0;
+                tong1 = item.soLuong * item.donGia;
+                tong += item.soLuong * item.donGia;
+                sl += item.soLuong;
+            }
+            <td>
+                @item.getTenMayTinh(item.maMayTinh)
+            </td>
+            <td>
+                @item.soLuong
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.donGia)
+            </td>
+            <td>
+                @tong1
+            </td>
+
+        </tr>
+    }
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+
+    </tr>
+    <tr>
+        <td></td>
+        <td> @sl</td>
+        <td></td>
+        <td> @tong</td>
+    </tr>
+</table>
+<a href="/Shop/Cart" style="text-align:center; float:right " class="btn btn-warning btn-outline-success" onclick="return confirm('Are you sure you want to buy this ?')">Quay Lại</a>
+@{ 
+    var khachHang = (KhachHang)ViewData["khachHang"];
+}
+
 <div class="limiter">
     <div class="container-login100">
         <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-50">
-            <form class="login100-form validate-form" action="/Home/Create" method="post">
+            <form class="login100-form validate-form" action="/Shop/XacNhanGioHang" method="post">
                 <span class="login100-form-title p-b-33">
                     Create
                 </span>
                 <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
-                    <input class="input100" type="text" onkeyup="checkToSignIn()" name="tenKH" id="tenKH" placeholder="Tên Người Dùng">
+                    <input class="input100" type="text" onkeyup="checkToSignIn()" name="tenKH" id="tenKH" value="@khachHang.tenKH" readonly>
 
                     <span class="focus-input100-1"></span>
                     <span class="focus-input100-2"></span>
                 </div>
 
                 <div class="wrap-input100 rs1 validate-input" data-validate="Password is required">
-                    <input class="input100" type="text" onkeyup="checkToSignIn()" name="tenDangNhap" id="tenDangNhap" placeholder="Tên Đăng Nhập">
+                    <input class="input100" type="text" onkeyup="checkToSignIn()" name="tenDangNhap" id="tenDangNhap" value="@khachHang.tenDangNhap" readonly>
                     <span class="glyphicon glyphicon-user form-control-feedback" id="er_user"></span>
                     <span class="focus-input100-1"></span>
                     <span class="focus-input100-2"></span>
@@ -63,7 +103,7 @@
                     <span class="focus-input100-2"></span>
                 </div>
                 <div class="wrap-input100 rs1 validate-input" data-validate="Password is required">
-                    <input class="input100" type="text" onkeyup="checkToSignIn()" name="gmail" id="gmail" placeholder="Gmail">
+                    <input class="input100" type="text" onkeyup="checkToSignIn()" name="gmail" id="gmail" value="@khachHang.gmail.ToString().Replace(" ","")" readonly>
                     <span class="glyphicon glyphicon-send form-control-feedback" id="er_gmail"></span>
                     <span class="focus-input100-1"></span>
                     <span class="focus-input100-2"></span>
@@ -74,27 +114,22 @@
                     <span class="focus-input100-1"></span>
                     <span class="focus-input100-2"></span>
                 </div>
+                <div class="wrap-input100 rs1 validate-input" data-validate="Password is required">
+                    <input class="input100" type="text" onkeyup="checkToSignIn()" name="diaChi" id="diaChi" placeholder="Địa Chỉ">
+                    <span class="glyphicon glyphicon-earphone form-control-feedback" id="er_diaChi"></span>
+                    <span class="focus-input100-1"></span>
+                    <span class="focus-input100-2"></span>
+                </div>
 
 
                 <div class="container-login100-form-btn m-t-20">
-                    <button class="login100-form-btn glyphicon glyphicon-cloud-upload">
-                        Tạo Tài Khoản
+                    <button class="login100-form-btn glyphicon glyphicon-cloud-upload" onclick="return confirm('Xác Nhận Mua Hàng ?')">
+                        Xác Nhận Mua Hàng
                     </button>
-                </div>
-                <div class="text" style="text-align:center">
-                    <span class="txt1">
-                        Đăng Nhập
-                    </span>
-                    <a href="/Home/Login" class="txt2 hov1 btn btn-success">
-                        Login
-                    </a>
                 </div>
             </form>
         </div>
     </div>
-</div>
-<div>
-    <a href="/Home/Login" class="btn btn-info"> Back To Log In</a>
 </div>
 <script>
     $("form").submit(function (event) {
@@ -102,6 +137,7 @@
             if ($("#matKhau").val().length > 4 && $("#matKhau").val() == $("#matKhau1").val()) {
                 if ($("#SDT").val().length > 8 && $("#SDT").val().length < 10) {
                     if (isEmail($("#gmail").val()))
+                        if ($("diaChi").val().length > 10)
                         return;
                 }
             }
@@ -161,6 +197,15 @@
             document.getElementById("er_SDT").innerHTML = a.fontcolor("red");
         }
 
+        if (document.getElementById("diaChi").value.length > 10) {
+            var a = "OK"
+            document.getElementById("er_diaChi").innerHTML = a.fontcolor("green");
+        }
+        else {
+            var a = "ERR";
+            document.getElementById("er_diaChi").innerHTML = a.fontcolor("red");
+        }
+
         //var value_repassword = document.getElementById("repassword").value;
         //if (value_repassword.length > 6) {
         //	if (value_password != value_repassword) {
@@ -175,3 +220,6 @@
     }
 
 </script>
+
+
+

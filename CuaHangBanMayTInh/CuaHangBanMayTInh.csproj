@@ -1991,6 +1991,7 @@
     <Content Include="Views\Admin\QuanLy.cshtml" />
     <Content Include="Views\Admin\Edit.cshtml" />
     <Content Include="Views\Shop\DonHang.cshtml" />
+    <Content Include="Views\Shop\XacNhanKhachHang.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

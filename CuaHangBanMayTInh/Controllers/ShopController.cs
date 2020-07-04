@@ -247,17 +247,26 @@ namespace CuaHangBanMayTInh.Controllers
                 }
             return RedirectToAction("Cart");
         }
-        public ActionResult XacNhanGioHang()
+        public ActionResult XacNhanGioHang(string matKhau)
         {
             if(Session["username"] == null)
             {
                 return RedirectToAction("Login","Home");
             }
+            if(Session["cart"] == null)
+            {
+                return RedirectToAction("Index");
+            }
+            Customer tool_user = new Customer();
+            if (!tool_user.checkLogin(Session["username"].ToString(), matKhau))
+            {
+                return View();
+            }
             else
             {
                 Model1 db = new Model1();
                 KhachHang obj_khachHang = new KhachHang();
-                obj_khachHang = obj_khachHang.SelectTop(Session["username"].ToString());
+                obj_khachHang = obj_khachHang.SelectTop(tenDangNhap:Session["username"].ToString());
                 if(obj_khachHang == null)
                 {
                     return RedirectToAction("Login","Home");
@@ -306,5 +315,15 @@ namespace CuaHangBanMayTInh.Controllers
             return View(obj_donHang);
         }
         
+        public ActionResult XacNhanKhachHang()
+        {
+            Model1 db = new Model1();
+            var listSanPham = new List<GioHang>();
+            listSanPham = (List<GioHang>)Session["cart"];
+            KhachHang khachHang = db.KhachHangs.SqlQuery("select * from KhachHang where tenDangNhap = '" +Session["username"]+ "' ").SingleOrDefault();
+           
+            ViewData["khachHang"] = khachHang;
+            return View(listSanPham);
+        }
     }
 }
